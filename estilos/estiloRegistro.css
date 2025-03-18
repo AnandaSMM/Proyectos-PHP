@@ -1,0 +1,100 @@
+body{
+    background-color: #c7b5a7;
+    background-image: url("../imagenes/fondo1.jpg");
+    background-size: cover;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    justify-content: end;
+    margin-right: 110px;
+    margin-top: 80px;
+}
+
+div{
+    border: 2px solid #D391B0;
+    border-radius: 15px;
+    box-shadow:  2px 0px 5px #543c31,
+    -2px 0px 5px #543c31;
+    width: fit-content;
+    background-color: #f1a9af;
+}
+
+h3{
+    background-image: url("../imagenes/fondo3.jpg");
+    color: #543c31;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px 0px;
+    font-size: large;
+}
+
+.error{
+    text-align: center;
+    padding: 10px 0px;
+    width: 100%;
+    color: #543c31;
+    border: 2px solid #d15662;
+    box-shadow: 2px 0px 5px #d15662;
+}
+
+.inputTexto{
+    margin: 20px;
+    width: 320px;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+input{
+    box-shadow: 2px 0px 5px #543c31;
+    border-radius: 15px; 
+    padding: 5px;
+    width: 180px;
+    height: 25px;
+}
+
+.botones {
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.registarse{
+    margin: 15px 15px;
+    height: 45px;
+    width: 120px;
+    border-radius: 25px;
+    padding: 8px 18px;
+    cursor: pointer;
+    border :2px solid #3e2c23;
+    box-shadow: 2px 0px 5px #3e2c23;
+    background-color: #f1a9af;
+    color: #3e2c23;
+    font-size: medium;
+}
+
+.registarse:hover{
+    height: 48px;
+    width: 125px;
+}
+
+.btnSesion {
+    height: 27px;
+    width: 110px;
+    font-size: medium;
+    border-radius: 25px;
+    padding: 8px 18px;
+    cursor: pointer;
+    border :2px solid #3e2c23;
+    box-shadow: 2px 0px 5px #3e2c23;
+    color: #3e2c23;
+    align-self: center;
+}
+
+.btnSesion:hover {
+    width: 115px;
+    text-align: center;
+}

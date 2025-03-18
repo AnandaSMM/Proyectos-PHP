@@ -1,0 +1,212 @@
+body {
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(254, 190, 212);
+    background-image: url("../imagenes/fondo2.jpg");
+    background-size: cover;
+    background-position: right;
+}
+
+h1 {
+    text-align: center;
+    color: #543c31;
+    margin: 25px;
+}
+
+/*div general de fondo blanco*/
+.cuaderno {
+    background-color: rgb(255, 255, 255);
+    border: 3px dashed rgb(250, 115, 137);
+    padding: 10px;
+    width: 80%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+/*barra de tareas, carpetas y (usuarios)*/
+.formGeneral {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+    border-bottom: 2px solid rgb(250, 115, 137);
+}
+
+/*estilo de inputs*/
+input {
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    background-color: rgb(255, 255, 255);
+    color: rgb(250, 115, 137);
+    font-size: 17px;
+    border: 0px;
+    height: 40;
+    border-radius: 15px;
+    padding: 10px;
+    cursor: pointer;
+}
+/************************************ Tareas **************************************************/
+.mostrarTareas {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#formularioCrearTareas {
+    width: 35%;
+    height: 50%;
+    
+}
+
+.agregarTareaFormulario {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    height: 300px;
+}
+
+#titulotareas {
+    border: 2px solid rgb(253, 160, 175);
+    height: 15px;
+    width: 300px;
+}
+
+#botones {
+    border: 1px dashed rgb(250, 115, 137);
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: small;
+    box-shadow: 1px 0px 5px #d15662;
+}
+
+/* barra de scrolleo en listado de tareas*/
+.scroll-table-tareas {
+    width: 60%;
+    height: 90%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 10px;
+}
+
+.scroll-table table {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    color: #543c31;
+    display: inline;
+}
+.scroll-table table th,
+td {
+    padding: 10px;
+    text-align: left;
+    
+}
+.tablaTareas {
+    border-collapse: collapse;
+}
+.tablaTareas tr{
+    border-bottom : 1px solid black ;
+}
+.tablaTareas td {
+    padding: 10px;
+    max-width: 270px;
+    overflow-wrap: break-word;
+}
+
+
+/**/
+/***************************** Carpetas ****************************************************/
+/*div carpetas contiene */
+.carpetasDiv {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px 15px;
+    justify-content: space-between;
+}
+
+.mostrarCarpeta {
+    width: 50%;
+    height: 100%;
+    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.creaCarpeta {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: space-evenly;
+    width: 80%;
+    height: 45px;
+}
+
+#nombreCarpeta {
+    border: 2px solid pink;
+    width: 250px;
+}
+
+#nuevaCarpeta {
+    border: 2px solid pink;
+    padding: 10px 20px;
+    color: black;
+}
+/*scrolleo de las carpetas*/
+.scroll-table-carpeta {
+    height: 300px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 10px;
+}
+
+.tablaCarpeta {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#selectTarea {
+    display: flex;
+    margin-right: 20px;
+}
+
+.tareasEnCarpeta {
+    height: fit-content;
+    justify-content: flex-start;
+}
+
+/************************************* otros ***************************************************/
+/* Cerrar sesión*/
+a {
+    margin: 25px;
+    padding: 10px;
+    color: #543c31;
+    border: 1px solid #543c31;
+    border-radius: 15px;
+    background-color: rgb(250, 213, 226);
+}
+
+/*************************************** Usuarios **************************************************/
+.tablaUsuarios {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 10px;
+    color: #543c31;
+}
+.tablaUsuarios th {
+    padding: 15px;
+}
+.tablaUsuarios td {
+    padding: 15px;
+}
