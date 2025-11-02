@@ -1,47 +1,49 @@
 body{
-    background-color: #c7b5a7;
-    background-image: url("../imagenes/fondo1.jpg");
-    background-size: cover;
-    font-family: Georgia, Times, 'Times New Roman', serif;
+    background: linear-gradient(to top ,#420D4B , #210635 60%);
+    background-size: 150% 150%;
+    font-family:Georgia, 'Times New Roman', Times, serif;
     display: flex;
-    justify-content: end;
-    margin-right: 110px;
-    margin-top: 80px;
+    justify-content: center;
+    margin-top: 100px;
+    
 }
 
 h3{
     background-image: url("../imagenes/fondo3.jpg");
-    color: #543c31;
+    color: #f5d5e0;
     display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 25px;
     padding: 15px 0px;
     font-size: large;
 }
 
 .principal{
-    background-color: #eebfc3;
+    background: linear-gradient(to bottom,#7B337E 30%,#420D4B, #210635);
+    width: 380px;
     border: 1px solid;
-    border-color: #7e544a;
+    border-color: #210635;
     border-radius: 15px;
-    width: 363.2px;
-    box-shadow:  2px 0px 5px #543c31,
-    -2px 0px 5px #543c31;
+    box-shadow:  2px 0px 5px #420D4B,
+    -2px 0px 5px #7B337E;
     display: flex;
     align-self: flex-end;
     justify-content: space-evenly;
     flex-direction: column;
     align-items:center;
 }
+.principal:hover{
+    border-color: #f5d5e0;
+    box-shadow:  2px 0px 5px #7B337E,
+    -2px 0px 5px #7B337E;
+}
 
 .error{
     text-align: center;
     padding: 10px 0px;
-    width: 100%;
-    color: #543c31;
-    border: 2px solid #d15662;
-    box-shadow: 2px 0px 5px #d15662;
+    width: 90%;
+    color: #f5d5e0;
+    background-color: #210635;
+    border: 2px solid #800511;
+    box-shadow: 2px 0px -5px #800511;
 }
 
 input{
@@ -49,7 +51,7 @@ input{
     padding: 10px;
     width: 180px;
     height: 25px;
-    border-color: #7e544a;
+    border-color: #210635;
 }
 
 .texto{
@@ -61,8 +63,24 @@ input{
     align-items: center;
     margin:15px 0px;
 }
+.textRecord {
+    color: #f5d5e0;
+}
+
+.records {
+    width: 210px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+}
+
+#recordarme{
+    width: 30px;
+}
 
 .botones{
+    border-radius: 5px; 
     width: 300px;
     height: 50px;
     display: flex;
@@ -70,34 +88,25 @@ input{
     justify-content: space-around;
     margin:35px 0px;
 }
-.recordS {
-    width: 210px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    justify-items: center;
-}
-#recordarme{
-    width: 30px;
-}
 
 .btnInicio{
     height: 45px;
     width: 100px;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 8px 18px;
     font-size: medium;
     cursor: pointer;
-    border :2px solid #543c31;
-    box-shadow: 3px -1px 5px #b86675;
-    background-color: #eebfc3;
-    color: #543c31;
+    border :2px solid #210635;
+    box-shadow: 3px -1px 5px #210635;
+    background-color: #420D4B;
+    color: #f5d5e0;
 }
  
 .btnInicio:hover {
     height: 45px;
     width: 105px;
+    border :2px solid #f5d5e0;
+    box-shadow: 3px -1px 5px #7B337E;
 
 }
 
@@ -105,18 +114,21 @@ input{
     height: 25px;
     width: 80px;
     font-size: medium;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 8px 18px;
     cursor: pointer;
-    border :2px solid #543c31;
-    box-shadow: 3px -1px 5px #b86675;
-    color: #543c31;
+    border :2px solid #210635;
+    box-shadow: 3px -1px 5px #210635;
+    background-color: #420D4B;
+    color: #f5d5e0;
     
 }
    
 .btnRegistro:hover {
     width: 85px;
     text-align: center;
+    border :2px solid #f5d5e0;
+    box-shadow: 3px -1px 5px #7B337E;
 }
  
   

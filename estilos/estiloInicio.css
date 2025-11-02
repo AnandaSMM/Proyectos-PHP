@@ -4,22 +4,21 @@ body {
     justify-content: space-evenly;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(254, 190, 212);
-    background-image: url("../imagenes/fondo2.jpg");
-    background-size: cover;
-    background-position: right;
+    background: linear-gradient(to bottom ,#7B337E,#420D4B , #210635 );
+    background-size: 150% 150%;
 }
 
 h1 {
     text-align: center;
-    color: #543c31;
+    color: #f5d5e0;
     margin: 25px;
 }
 
 /*div general de fondo blanco*/
 .cuaderno {
-    background-color: rgb(255, 255, 255);
-    border: 3px dashed rgb(250, 115, 137);
+    background-color: #ffff;
+    border: 3px solid #f5d5e0;
+    box-shadow: 1px -1px 5px #f5d5e0;
     padding: 10px;
     width: 80%;
     height: 500px;
@@ -34,14 +33,14 @@ h1 {
     display: flex;
     justify-content: space-around;
     margin: 10px;
-    border-bottom: 2px solid rgb(250, 115, 137);
+    border-bottom: 2px solid #7B337E;
 }
 
 /*estilo de inputs*/
 input {
     font-family: Georgia, Times, 'Times New Roman', serif;
     background-color: rgb(255, 255, 255);
-    color: rgb(250, 115, 137);
+    color: #210635;
     font-size: 17px;
     border: 0px;
     height: 40;
@@ -71,27 +70,61 @@ input {
     height: 300px;
 }
 
-#titulotareas {
-    border: 2px solid rgb(253, 160, 175);
-    height: 15px;
-    width: 300px;
+.titulotareas {
+    border: 2px solid #939091;
+    height: 20px;
+    width: 290px;
+    border-radius: 10px;
+}
+
+.botonCrearT {
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: medium;
+    border :2px solid #f5d5e0;
+    box-shadow: 1px -1px 5px #7B337E;
+    height: 45px;
+    width: 100px;
+}
+
+.botonCrearT:hover {
+    height: 45px;
+    width: 105px;
+    border :2px solid #210635;
+    box-shadow: 1px -1px 5px #210635;
 }
 
 #botones {
-    border: 1px dashed rgb(250, 115, 137);
     border-radius: 5px;
     margin-left: 10px;
     font-size: small;
-    box-shadow: 1px 0px 5px #d15662;
+    border :2px solid #f5d5e0;
+    box-shadow: 1px -1px 5px #7B337E;
+    height: 35px;
+    width: 90px;
+}
+
+#botones:hover {
+    border :2px solid #210635;
+    box-shadow: 1px -1px 5px #210635;
 }
 
 /* barra de scrolleo en listado de tareas*/
+.noHay {
+    display: flex;
+    justify-content: center;
+    color:#939091;
+}
+
 .scroll-table-tareas {
     width: 60%;
-    height: 90%;
+    height: 80%;
     overflow-x: hidden;
     overflow-y: auto;
     margin: 10px;
+    border-left: 2px solid #7B337E;
+    display:flex;
+    justify-content: center;
 }
 
 .scroll-table table {
@@ -112,16 +145,16 @@ td {
     border-collapse: collapse;
 }
 .tablaTareas tr{
-    border-bottom : 1px solid black ;
+    border-top : 1px solid black ;
 }
-.tablaTareas td {
+.tablaTareas td,th {
     padding: 10px;
+    margin-left: 10px;
     max-width: 270px;
     overflow-wrap: break-word;
 }
 
 
-/**/
 /***************************** Carpetas ****************************************************/
 /*div carpetas contiene */
 .carpetasDiv {
@@ -146,17 +179,26 @@ td {
     justify-content: space-evenly;
     width: 80%;
     height: 45px;
+    margin-bottom: 20px;
 }
 
 #nombreCarpeta {
-    border: 2px solid pink;
-    width: 250px;
+    border: 2px solid #939091;
+    width: 250px; 
 }
 
 #nuevaCarpeta {
-    border: 2px solid pink;
-    padding: 10px 20px;
+    padding: 5px 10px;
     color: black;
+    font-size: medium;
+    border :2px solid #f5d5e0;
+    border-radius: 5px;
+    box-shadow: 1px -1px 5px #7B337E;
+}
+
+#nuevaCarpeta:hover {
+    border :2px solid #210635;
+    box-shadow: 1px -1px 5px #210635;
 }
 /*scrolleo de las carpetas*/
 .scroll-table-carpeta {
@@ -173,9 +215,11 @@ td {
     justify-content: space-around;
 }
 
-#selectTarea {
-    display: flex;
+.selectTarea {
     margin-right: 20px;
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
 }
 
 .tareasEnCarpeta {
@@ -186,12 +230,21 @@ td {
 /************************************* otros ***************************************************/
 /* Cerrar sesión*/
 a {
-    margin: 25px;
-    padding: 10px;
-    color: #543c31;
-    border: 1px solid #543c31;
-    border-radius: 15px;
-    background-color: rgb(250, 213, 226);
+    margin-top: 20px;
+    padding-top: 8px;
+    height: 35px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    color: #7B337E;
+    border: 1px solid #7B337E;
+    box-shadow: 3px -1px 5px #210635;
+    border-radius: 10px;
+    background-color: #210635;
+}
+a:hover {
+    border :2px solid #f5d5e0;
+    box-shadow: 3px -1px 5px #7B337E;
 }
 
 /*************************************** Usuarios **************************************************/
@@ -210,3 +263,23 @@ a {
 .tablaUsuarios td {
     padding: 15px;
 }
+
+.popup {
+  position: fixed;
+  top: 20px;
+  left: 80%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  padding: 15px 25px;
+  border-radius: 10px;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: white;
+  opacity: 0;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+.popup.ok { background-color: #59a169; }       /* Verde */
+.popup.error { background-color: #800511; }   /* Rojo */
+.popup.show { opacity: 1; }

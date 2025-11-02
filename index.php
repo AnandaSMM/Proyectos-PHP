@@ -25,20 +25,7 @@ $mensajesBuenos = [];
 <body>
     <h1> Bienvenida <?= $_SESSION['nombre'] ?> </h1>
     <div class="cuaderno">
-        <!-- mostrar errores -->
-        <?php if (!empty($errores)) {
-            foreach ($errores as $error) { ?>
-                <h3><?= $error ?></h3>
-        <?php  }
-        } ?>
-
-        <!-- mostrar mensajes buenos -->
-        <?php if (!empty($mensajesBuenos)) {
-            foreach ($mensajesBuenos as $mensaje) { ?>
-                <h3><?= $mensaje ?></h3>
-        <?php  }
-        }  ?>
-
+        
         <form method="get" class="formGeneral">
             <!-- agregar tareas -->
             <input type="submit" name="crearTareas" value="Tareas">
@@ -56,24 +43,49 @@ $mensajesBuenos = [];
             crearCarpetas($_POST['nombreCarpeta']);
             $mensajesBuenos[] = "Crapeta creada correctamente";
 
-        } ?>
-        <!--eliminar carpeta-->
-        <?php if (isset($_POST['eliminarcarpeta'])) {
+        } 
+        //<!--eliminar carpeta-->
+        if (isset($_POST['eliminarcarpeta'])) {
             eliminarCarpeta($_POST['idCarpeta']);
             $mensajesBuenos[] = "carpeta eliminada correctamente.";
-        } ?>
+        } 
 
-        <!--------------------------------------- Tareas ---------------------------------------------------->
-        <?php if (isset($_POST['botonAgregarTarea']))
-            crearTarea($_POST['titulotareas'], $_POST['contenido'], $_POST['fechaFin'], $_SESSION['usuario'], $errores, $mensajesBuenos) ?>
-        <?php if (isset($_POST['eliminarTarea']))
-            eliminarTarea($_POST['idTarea']) ?>
-        <!--------------------------------------- Usuarios ---------------------------------------------------->
+        //<!--------------------------------------- Tareas ---------------------------------------------------->
+        $limpiarCampos = false;
+         if (isset($_POST['botonAgregarTarea'])){
+            crearTarea($_POST['titulotareas'], $_POST['contenido'], $_POST['fechaFin'], $_SESSION['usuario'], $errores, $mensajesBuenos) ;
+           if(empty($erorres)){
+            $limpiarCampos=true;
+           }
+        }    
+        $botonEditar = false;
+        if (isset($_POST['eliminarTarea'])){
+            eliminarTarea($_POST['idTarea'],$mensajesBuenos); 
+        }
+        
+        $contenidoText='';    
+        if (isset($_POST['editarTarea'])){ // primero mandamos los datos a el cuestionario 
+            $tareaEncontrada = buscarTarea( $_POST['idTarea']);
+            $_POST['titulotareas'] = $tareaEncontrada['titulo'];
+            $contenidoText = $tareaEncontrada['contenido'];
+            $_POST['fechaFin'] = $tareaEncontrada['fechaFin'];
+            $botonEditar = true;
+        }
+        if(isset($_POST['modificarTarea'])){
+            editarTarea($_POST['titulotareas'], $_POST['contenido'], $_POST['fechaFin'], $_SESSION['usuario'], $errores, $mensajesBuenos, $_POST['idEditarTarea']); 
+            $_POST['titulotareas'] = '';
+            $contenidoText = '';
+            $_POST['fechaFin'] = '';
+            $botonEditar = false;
+            $_POST['idEditarTarea'] = '';
+        }
 
-        <?php if (isset($_POST['eliminarUsuario'])) {
+        //<!--------------------------------------- Usuarios ---------------------------------------------------->
+
+        if (isset($_POST['eliminarUsuario'])) {
             eliminarUsuarios($_POST['idUsuario']);
             $mensajesBuenos[] = "usuario eliminado correctamente";
-        }   ?>
+        }  ?>
 
         <?php if (isset($_GET['mostrarUsuario'])) { ?>
             <table class="tablaUsuarios">
@@ -103,19 +115,28 @@ $mensajesBuenos = [];
         <div class="mostrarTareas">
             <form method="post" id="formularioCrearTareas">
                 <label class="agregarTareaFormulario">
-                    <input type="text" name="titulotareas" id="titulo" placeholder="Titulo">
-                    <textarea name="contenido" placeholder="Contenido" rows="5" cols="40"></textarea>
-                    <input type="date" name="fechaFin" id="fechaFin" min="">
-                    <input type="submit" name="botonAgregarTarea" value="Agregar" id="botones">
+                    <input type="text" name="titulotareas" class="titulotareas" id="titulo" placeholder="Titulo" value="<?php echo $limpiarCampos ? '' : ($_POST['titulotareas'] ?? ''); ?>">
+                    <textarea name="contenido" placeholder="Contenido" rows="5" cols="40" value="<?php echo $limpiarCampos ? '' : ($_POST['contenido'] ?? ''); ?>"><?=(!empty($contenidoText))? $contenidoText : ''?></textarea>
+                    <input type="date" name="fechaFin" id="fechaFin" min="" value="<?php echo $limpiarCampos ? '' : ($_POST['fechaFin'] ?? ''); ?>">
+                    <?php if(!isset($_POST['editarTarea'])){?>
+                        <input type="submit" name="botonAgregarTarea" value="Agregar" class="botonCrearT">
+                    <?php } else {?>
+                        <input type="hidden" name="idEditarTarea" value="<?= $_POST['idTarea']?>" >
+                        <input type="submit" name="modificarTarea" value="Editar" id="botones">
+                    <?php   }?>
                 </label>
             </form>
             <div class="scroll-table-tareas">
                 <table class="tablaTareas">
                     <tr>
+                        <?php if(!empty(mostrarTareas())){?>
                         <th>Título</th>
                         <th>Contenido</th>
                         <th>Creación</th>
                         <th>Fin</th>
+                        <?php } else {?>
+                            <p class="noHay">Listado de tareas vacio</p>
+                        <?php }?>
                     </tr>
                     <?php foreach (mostrarTareas() as $tarea) { ?>
                         <tr>
@@ -127,6 +148,7 @@ $mensajesBuenos = [];
                                 <form method="post">
                                     <input type="hidden" name="idTarea" value="<?= $tarea['idTarea'] ?>">
                                     <input type="submit" name="eliminarTarea" value="Eliminar" id="botones">
+                                    <input type="submit" name="editarTarea" value="Editar" id="botones">
                                 </form>
                             </td>
                         </tr>
@@ -170,7 +192,9 @@ $mensajesBuenos = [];
                                     </td>
                                 </tr>
                         <?php }
-                        } else  $errores[] = "Aún no hay carpetas creadas" ?>
+                        } else {?>
+                            <p class="noHay">Listado de carpetas vacio</p>
+                        <?php } ?>
                         </table>
                 </div>
             </div>
@@ -180,11 +204,15 @@ $mensajesBuenos = [];
         <?php if (isset($_POST['agregarTcarpeta'])) {
             $idCarpeta = $_POST['idCarpeta']; ?>
             <form method="post" name="selectTarea">
-                <select name="tareaSeleccionada">
+                <?php if(!empty(mostrarTareas())){?>
+                <select name="tareaSeleccionada" class="selectTarea">
                     <option disabled selected>Tareas</option>
-                    <?php foreach (mostrarTareas() as $tarea) { ?>
-                        <option value="<?= $tarea['idTarea'] ?>"><?= $tarea['titulo'] ?></option>
-                    <?php } ?>
+                        <?php foreach (mostrarTareas() as $tarea) { ?>
+                            <option value="<?= $tarea['idTarea'] ?>"><?= $tarea['titulo'] ?></option>
+                        <?php } 
+                    }else {?>
+                        <p class="noHay">Listado de tareas vacio</p>
+                    <?php }?>
                 </select>
                 <input type="hidden" name="carpeta">
                 <input type="hidden" name="idCarpeta" value="<?= $_POST['idCarpeta'] ?>">
@@ -202,18 +230,31 @@ $mensajesBuenos = [];
                     <tr>
                         <td><?= $dato['titulo_tarea'] ?></td>
                         <td><?= $dato['contenido_tarea'] ?></td>
-                    </tr>
-                    <tr>
                         <td><?= $dato['fecha_inicio'] ?></td>
                         <td><?= $dato['fecha_fin'] ?></td>
                     </tr>
                 <?php } ?>
             </table>
-        <?php   } ?>
+        <?php  } ?>
+    </div>
+       <!-- mostrar errores -->
+       <?php if (!empty($errores) || !empty($mensajesBuenos)): ?>
+        <div id="popup" class="popup <?php echo !empty($errores) ? 'error' : 'ok'; ?>">
+            <?php 
+            if (!empty($errores)) {
+            echo implode('<br>', $errores);
+            } else {
+            echo implode('<br>', $mensajesBuenos);
+            } ?>
         </div>
-
+        <script>
+            // Mostrar y ocultar automáticamente
+            const popup = document.getElementById("popup");
+            popup.classList.add("show");
+            setTimeout(() => popup.classList.remove("show"), 3000);
+        </script>
+        <?php endif; ?>
     </div>
     <a href="cerrarSesion.php">Cerrar sesión</a>
 </body>
-
 </html>

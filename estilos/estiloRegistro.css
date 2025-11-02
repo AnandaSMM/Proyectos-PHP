@@ -1,26 +1,35 @@
 body{
-    background-color: #c7b5a7;
-    background-image: url("../imagenes/fondo1.jpg");
-    background-size: cover;
+    background: linear-gradient(to top ,#420D4B , #210635 60%);
+    background-size: 150% 150%;
     font-family: Georgia, Times, 'Times New Roman', serif;
     display: flex;
-    justify-content: end;
-    margin-right: 110px;
+    justify-content: center;
     margin-top: 80px;
 }
 
 div{
-    border: 2px solid #D391B0;
+   background: linear-gradient(to bottom,#7B337E 30%,#420D4B, #210635);
+    width: 380px;
+    border: 1px solid;
+    border-color: #210635;
     border-radius: 15px;
-    box-shadow:  2px 0px 5px #543c31,
-    -2px 0px 5px #543c31;
-    width: fit-content;
-    background-color: #f1a9af;
+    box-shadow:  2px 0px 5px #420D4B,
+    -2px 0px 5px #7B337E;
+    display: flex;
+    align-self: flex-end;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items:center;
+    color: #f5d5e0;
+}
+div:hover{
+    border-color: #f5d5e0;
+    box-shadow:  2px 0px 5px #7B337E,
+    -2px 0px 5px #7B337E;
 }
 
 h3{
     background-image: url("../imagenes/fondo3.jpg");
-    color: #543c31;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -32,10 +41,11 @@ h3{
 .error{
     text-align: center;
     padding: 10px 0px;
-    width: 100%;
-    color: #543c31;
-    border: 2px solid #d15662;
-    box-shadow: 2px 0px 5px #d15662;
+    width: 90%;
+    color: #f5d5e0;
+    background-color: #210635;
+    border: 2px solid #800511;
+    box-shadow: 2px 0px -5px #800511;
 }
 
 .inputTexto{
@@ -49,11 +59,11 @@ h3{
 }
 
 input{
-    box-shadow: 2px 0px 5px #543c31;
     border-radius: 15px; 
     padding: 5px;
-    width: 180px;
+    width: 220px;
     height: 25px;
+    border-color: #210635;
 }
 
 .botones {
@@ -66,35 +76,40 @@ input{
     margin: 15px 15px;
     height: 45px;
     width: 120px;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 8px 18px;
     cursor: pointer;
-    border :2px solid #3e2c23;
-    box-shadow: 2px 0px 5px #3e2c23;
-    background-color: #f1a9af;
-    color: #3e2c23;
+    border :2px solid #210635;
+    box-shadow: 2px 0px 5px #210635;
+    background-color: #420D4B;
     font-size: medium;
+    color: #f5d5e0;
 }
 
 .registarse:hover{
     height: 48px;
     width: 125px;
+    border :2px solid #f5d5e0;
+    box-shadow: 3px -1px 5px #7B337E;
 }
 
 .btnSesion {
     height: 27px;
     width: 110px;
     font-size: medium;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 8px 18px;
     cursor: pointer;
-    border :2px solid #3e2c23;
-    box-shadow: 2px 0px 5px #3e2c23;
-    color: #3e2c23;
+    border :2px solid #210635;
+    box-shadow: 2px 0px 5px #210635;
     align-self: center;
+    background-color: #420D4B;
+    color: #f5d5e0;
 }
 
 .btnSesion:hover {
     width: 115px;
     text-align: center;
+    border :2px solid #f5d5e0;
+    box-shadow: 3px -1px 5px #7B337E;
 }

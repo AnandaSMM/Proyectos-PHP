@@ -96,8 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" id="usuario" name="usuario" placeholder="Correo">
                 <input type="password" id="contra" name="contra" placeholder="Contraseña">
             </p>
-            <div class="recordS">
-                <label>Recordar sesión :</label>
+            <div class="records">
+                <label class="textRecord">Recordar sesión </label>
                 <input type="checkbox" name="recordarme" id="recordarme">
             </div>
             <p class="botones">

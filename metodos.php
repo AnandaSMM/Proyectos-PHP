@@ -1,13 +1,11 @@
 <?php
 require_once './core/dbconex.php';
 
-function crearTarea($titulo, $contenido, $fechaFin, $idUsuario, $errores, $mensajesBuenos){
-    $errores = [];
-    $mensajesBuenos = [];
-    if (empty($titulo || empty($contenido))) { // que no haya ningun campo vacio
-        $errores[] = "Asegurese de rellenar todos los campos.";
+function crearTarea($titulo, $contenido, $fechaFin, $idUsuario, &$errores, &$mensajesBuenos){
+    if (empty($titulo) && empty($contenido)) { // que no esten vacios
+        $errores[] = "Asegurese de rellenar todos los campos";
+        return ;
     } else {
-        
         try {
             $titulo = htmlspecialchars(stripcslashes(trim($titulo)));
             $contenido = htmlspecialchars(stripcslashes(trim($contenido)));
@@ -24,23 +22,69 @@ function crearTarea($titulo, $contenido, $fechaFin, $idUsuario, $errores, $mensa
                 $stm->execute();
                 $mensajesBuenos[] = "Tarea agregada correctamente";
             } else {
-            $query = "INSERT INTO tarea (titulo, contenido, fechaFin, fechaIni, idUsuario) VALUES (:titulo, :contenido , :fechaFin, :fechaIni, :idUsuario)";
-            $stm = conex()->prepare($query);
-            $stm->bindValue(':titulo', $titulo);
-            $stm->bindValue(':contenido', $contenido);
-            $stm->bindValue(':fechaFin', $fechaFin);
-            $stm->bindValue(':fechaIni', $fechaIni); // buscar como se pone la fecha del momento
-            $stm->bindValue(':idUsuario', $idUsuario); ///pasar el id por la sesion
-            $stm->execute();
-            $mensajesBuenos[] = "Tarea agregada correctamente";
+                if(date('Y-m-d')>= $fechaFin){
+                    $errores[] = "La fecha del final de la tarea no puede ser menor que la fecha de hoy";
+                    return ;
+                }else{
+                    $query = "INSERT INTO tarea (titulo, contenido, fechaFin, fechaIni, idUsuario) VALUES (:titulo, :contenido , :fechaFin, :fechaIni, :idUsuario)";
+                    $stm = conex()->prepare($query);
+                    $stm->bindValue(':titulo', $titulo);
+                    $stm->bindValue(':contenido', $contenido);
+                    $stm->bindValue(':fechaFin', $fechaFin);
+                    $stm->bindValue(':fechaIni', $fechaIni); // buscar como se pone la fecha del momento
+                    $stm->bindValue(':idUsuario', $idUsuario); ///pasar el id por la sesion
+                    $stm->execute();
+                    $mensajesBuenos[] = "Tarea agregada correctamente";
+                }
+            }
+        } catch (PDOException $error) {
+            echo "error en agregar : " . $error->getMessage();
         }
-    } catch (PDOException $error) {
-        echo "error en agregar : " . $error->getMessage();
-    }
     }
 }
 
-function eliminarTarea($idTarea){
+function editarTarea($titulo, $contenido, $fechaFin, $idUsuario, &$errores, &$mensajesBuenos, $idTarea){
+    if (empty($titulo) && empty($contenido)) { // que los dos no esten vacios
+        $errores[] = "Asegurese de al menos un campo";
+        return ;
+    } else {
+        try {
+            $titulo = htmlspecialchars(stripcslashes(trim($titulo)));
+            $contenido = htmlspecialchars(stripcslashes(trim($contenido)));
+            if (empty($fechaFin)) {
+                $query = "UPDATE tarea SET titulo = :titulo, contenido = :contenido  WHERE idTarea = :idTarea AND idUsuario = :idUsuario";
+                $stm = conex()->prepare($query);
+                $stm->bindValue(':titulo', $titulo);
+                $stm->bindValue(':contenido', $contenido);
+                $stm->bindValue(':idTarea', $idTarea); ///pasar el id por la sesion
+                $stm->bindValue(':idUsuario', $idUsuario);
+                $stm->execute();
+            } else {
+                if(date('Y-m-d')>= $fechaFin){
+                    $errores[] = "La fecha del final de la tarea no puede ser menor que la fecha de hoy";
+                    return ;
+                }
+                $query = "UPDATE tarea SET titulo = :titulo, contenido = :contenido, fechaFin = :fechaFin WHERE idTarea = :idTarea AND idUsuario = :idUsuario";
+                $stm = conex()->prepare($query);
+                $stm->bindValue(':titulo', $titulo);
+                $stm->bindValue(':contenido', $contenido);
+                $stm->bindValue(':fechaFin', $fechaFin);
+                $stm->bindValue(':idTarea', $idTarea);
+                $stm->bindValue(':idUsuario', $idUsuario); ///pasar el id por la sesion
+                $stm->execute();
+                
+            }
+            if ($stm->rowCount() > 0) {
+                $mensajesBuenos[] = "Tarea modificada correctamente";
+            } else {
+                $errores[] = "No se encontró ninguna tarea que modificar o los datos son iguales.";
+            }
+        } catch (PDOException $error) {
+            echo "Error en agregar : " . $error->getMessage();
+        }
+    }
+}
+function eliminarTarea($idTarea,&$mensajesBuenos ){
     try {
         $stm = conex()->prepare("DELETE FROM tarea WHERE idTarea = :idtarea");
         $stm->bindParam(':idtarea', $idTarea, PDO::PARAM_INT);
@@ -48,6 +92,18 @@ function eliminarTarea($idTarea){
         $mensajesBuenos[] = "Tarea eliminada correctamente";
     } catch (PDOException $error) {
         echo "Error en eliminar tarea : " . $error->getMessage();
+    }
+}
+
+function buscarTarea($idTarea){
+    try {
+        $stm = conex()->prepare("SELECT * FROM tarea WHERE idTarea = :idTarea");
+        $stm->bindValue(':idTarea', $idTarea);
+        $stm->execute();
+        $tareas = $stm->fetch();
+        return $tareas;
+    } catch (PDOException $error) {
+        echo "Error en buscar tarea : " . $error->getMessage();
     }
 }
 
